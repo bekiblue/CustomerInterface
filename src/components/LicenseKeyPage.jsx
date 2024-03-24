@@ -22,19 +22,24 @@ const LicenseKeyPage = () => {
   };
 
   const resetCount = async () => {
-    setIsMessageVisible(false); // Reset message visibility before making the request
+    setIsMessageVisible(false); 
   
-        // Check if the license key is empty
+       
     if (!licenseKey.trim()) {
         setMessage({ type: 'error', text: 'License key cannot be empty.' });
-        setIsMessageVisible(true); // Show the error message
+        setIsMessageVisible(true); 
         return;
     }
 
     try {
+      const token = localStorage.getItem('token');
       const response = await axios.post('http://localhost:5000/api/execute-python-script', {
         selectedProductID,
         licenseKey,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
   
       if (response.status === 200) {
@@ -43,7 +48,7 @@ const LicenseKeyPage = () => {
         setMessage({ type: 'error', text: response.data });
       }
   
-      setIsMessageVisible(true); // Show the success or error message
+      setIsMessageVisible(true); 
     } catch (error) {
       console.error('Error executing Python script:', error);
       
@@ -59,7 +64,7 @@ const LicenseKeyPage = () => {
         setMessage({ type: 'error', text: 'An error occurred while resetting the license.' });
       }
   
-      setIsMessageVisible(true); // Show the error message
+      setIsMessageVisible(true);
     }
   };
 
@@ -79,9 +84,9 @@ const LicenseKeyPage = () => {
 
   return (
     <div className="flex flex-col text-center items-center justify-center min-h-screen px-4 sm:px-0">
-      <div className="container mx-auto">
+      <div className="container mx-auto sm:w-full">
         <input
-          className="border bg-white text-black border-black rounded p-2 mr-2 focus:outline-none focus:border-blue-500"
+          className="border bg-white text-black border-black rounded p-2 mr-2 md:w-2/5 focus:outline-none focus:border-blue-500"
           type="text"
           placeholder="Enter license key"
           value={licenseKey}
@@ -101,17 +106,16 @@ const LicenseKeyPage = () => {
         </select>
 
         <button
-          className="bg-red-500 hover:bg-red-700 text-white font-bold rounded focus:outline-none"
+          className="bg-red-500 hover:bg-red-700 text-white font-bold rounded focus:outline-none w-40 min-h-10"
           onClick={resetCount}
         >
           Reset
         </button>
       
         {isMessageVisible && message && (
-          
           <div
-            className={`flex flex-col text-center items-center justify-center mt-6  h-8 px-4 sm:px-0 rounded  ${
-              message.type === 'success' ? 'bg-green-400 text-white' : 'bg-red-200 text-red-700'
+            className={`flex flex-col text-center items-center justify-center mt-6 h-8 px-4 sm:px-0 rounded w-1/2 mx-auto  ${
+              message.type === 'success' ? 'bg-green-600 text-white' : 'bg-red-500 text-white'
             }`}
           >
             {message.text}

@@ -20,10 +20,16 @@ const Home = () => {
     setIsLoading(true);
 
     try {
+      const token = localStorage.getItem('token');
       const response = await axios.get('http://localhost:5000/api/customer-data', {
         params: {
           email,
-        },
+          _: new Date().getTime(),
+        }, 
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      
       });
 
       console.log('Response', response.data);
@@ -54,16 +60,14 @@ const Home = () => {
     <div className="flex flex-col text-center items-center justify-center min-h-screen px-4 sm:px-0">
       <div className="container mx-auto">
         <input
-          className="border bg-white text-black border-black rounded p-2 mr-2 focus:outline-none focus:border-blue-500 w-full sm:w-auto"
+          className="border bg-white text-black border-black rounded p-2 mr-2 md:w-1/3 focus:outline-none focus:border-blue-500 "
           type="email"
           placeholder="Enter email"
           value={email}
           onChange={handleEmailChange}
-        />
-
+        />    
         <button
-           style={{ backgroundColor: '#00adb5' }}
-          className="text-white font-bold py-2 px-4 mr-20 mb-20 rounded focus:outline-none"
+          className="bg-[#00adb5] text-white font-bold py-2 px-4 mr-20 mb-20 rounded focus:outline-none"
           onClick={fetchData}
           disabled={isLoading}
         >
