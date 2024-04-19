@@ -33,7 +33,7 @@ const LicenseKeyPage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5000/api/execute-python-script', {
+      const response = await axios.post('http://45.76.206.228.vultrusercontent.com:5000/api/execute-python-script', {
         selectedProductID,
         licenseKey,
       }, {
