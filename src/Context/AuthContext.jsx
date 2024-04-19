@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const response = await axios.post('http://45.76.206.228.vultrusercontent.com:5000/api/login', { email, password });
+            const response = await axios.post('https://customersupport-4.onrender.com:5000/api/login', { email, password });
             const data = response.data;
 
             if (response.status === 200) {
