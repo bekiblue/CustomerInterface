@@ -33,7 +33,7 @@ const LicenseKeyPage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://45.76.206.228:5000/api/execute-python-script', {
+      const response = await axios.post('http://198.13.44.165:5000/api/execute-python-script', {
         selectedProductID,
         licenseKey,
       }, {

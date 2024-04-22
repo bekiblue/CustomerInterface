@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const response = await axios.post('http://45.76.206.228:5000/api/login', { email, password });
+            const response = await axios.post('http://198.13.44.165:5000/api/login', { email, password });
             const data = response.data;
 
             if (response.status === 200) {
