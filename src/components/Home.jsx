@@ -21,7 +21,7 @@ const Home = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://198.13.44.165:5000/api/customer-data', {
+      const response = await axios.get('https://customersupport-u0dw.onrender.com/api/customer-data', {
         params: {
           email,
           _: new Date().getTime(),
